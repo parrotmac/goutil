@@ -98,17 +98,20 @@ func TestBounded(t *testing.T) {
 	})
 }
 
-func TestFlatMap(t *testing.T) {
+func TestMap(t *testing.T) {
 
-	t.Run("Empty array", func(t *testing.T) {
-		assert.Equal(t, FlatMap([]int{}, func(i int) []int { return []int{i} }), []int{})
+	t.Run("int", func(t *testing.T) {
+		assert.Equal(t, Map([]int{1, 2, 3}, func(v int) int { return v * 2 }), []int{2, 4, 6})
 	})
 
-	t.Run("Non-empty array", func(t *testing.T) {
-		assert.Equal(t, FlatMap([]int{1, 2, 3}, func(i int) []int { return []int{i} }), []int{1, 2, 3})
+	t.Run("float64", func(t *testing.T) {
+		assert.Equal(t, Map([]float64{1.0, 2.0, 3.0}, func(v float64) float64 { return v * 2.0 }), []float64{2.0, 4.0, 6.0})
 	})
 
-	t.Run("Non-empty array with duplicates", func(t *testing.T) {
-		assert.Equal(t, FlatMap([]int{1, 2, 3}, func(i int) []int { return []int{i, i} }), []int{1, 1, 2, 2, 3, 3})
+	t.Run("struct", func(t *testing.T) {
+		type S struct {
+			A int
+		}
+		assert.Equal(t, Map([]S{{1}, {2}, {3}}, func(v S) int { return v.A * 2 }), []int{2, 4, 6})
 	})
 }

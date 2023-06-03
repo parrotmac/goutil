@@ -25,10 +25,10 @@ func Bounded[V Numeric](val, min, max V) V {
 	return val
 }
 
-func FlatMap[V any, R any](arr []V, f func(V) []R) []R {
-	result := []R{}
-	for _, v := range arr {
-		result = append(result, f(v)...)
+func Map[V any, R any](arr []V, f func(V) R) []R {
+	result := make([]R, len(arr))
+	for i, v := range arr {
+		result[i] = f(v)
 	}
 	return result
 }

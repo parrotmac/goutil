@@ -11,6 +11,10 @@ func UnwrapOr[V any](i *V, fallback V) V {
 	return fallback
 }
 
+func Ptr[V any](v V) *V {
+	return &v
+}
+
 func Outside[V Numeric](val, min, max V) bool {
 	return val < min || val > max
 }

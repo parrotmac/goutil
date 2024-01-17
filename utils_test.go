@@ -22,6 +22,27 @@ func TestUnwrapOr(t *testing.T) {
 	})
 }
 
+func TestPtr(t *testing.T) {
+
+	// Test int
+	t.Run("int", func(t *testing.T) {
+		assert.Equal(t, *Ptr(1), 1)
+	})
+
+	// Test float64
+	t.Run("float64", func(t *testing.T) {
+		assert.Equal(t, *Ptr(1.0), 1.0)
+	})
+
+	// Test struct
+	t.Run("struct", func(t *testing.T) {
+		type S struct {
+			A int
+		}
+		assert.Equal(t, *Ptr(S{1}), S{1})
+	})
+}
+
 func TestOutside(t *testing.T) {
 
 	// Test val < min
